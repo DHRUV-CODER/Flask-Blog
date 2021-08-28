@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block title %}{{user.username}}'s Account{%
+endblock %} {% block style %}
+<style>
+  img#pfp {
+    border-radius: 50%;
+  }
+  p {
+    white-space: pre-line;
+    /* font-size: 18px; */
+    /* font-weight: bolder; */
+  }
+  p#user_info {
+    font-size: 35px;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    color: black;
+  }
+</style>
+{% endblock %} {% block content %}
+<div align="center" id="user_info">
+  <p id="user_info"><strong>{{user.username}}'s</strong> Account Info.</p>
+  <img id="pfp" src="https://picsum.photos/200" alt="" />
+  <p id="user_info">
+    User Has Total of <strong>{{user.posts | length}}</strong> Posts
+  </p>
+</div>
+<br />
+<div id="posts">
+  {% for post in posts %}
+  <div class="card border-secondary">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <a href="/posts/{{post.user.username}}"
+        ><strong> {{post.user.username}} </strong></a
+      >
+      {% if user.id == post.author %}
+      <div class="btn-group">
+        <button
+          type="button"
+          class="btn btn-sm btn-dark dropdown-toggle"
+          data-bs-toggle="dropdown"
+        ></button>
+        <ul class="dropdown-menu bg-light">
+          <li>
+            <a href="/delete-post/{{post.id}}" class="dropdown-item">Delete</a>
+          </li>
+          <li>
+            <a href="/edit-post/{{post.id}}" class="dropdown-item">Edit</a>
+          </li>
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+    <div class="card-body">
+      <div class="card-text"><p>{{markdown.markdown(post.text)|safe}}</p></div>
+    </div>
+    <div class="card-footer text-muted">
+      <!-- <strong>{{post.date_created}}</strong>
+       -->
+      {% if not post.time_updated %}
+      <strong>Created: </strong>{{post.date_created}} {% else %}
+      <strong>Created: </strong>{{post.date_created}} ,
+      <strong>Edited: </strong> {{post.time_updated}} {% endif %}
+    </div>
+  </div>
+  <br/ > {% endfor %}
+</div>
+{% endblock %}

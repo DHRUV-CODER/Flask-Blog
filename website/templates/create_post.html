@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block style %}
+<style>
+  textarea#text.form-control {
+    border: 2px solid black;
+    color: black;
+    font-size: 20px;
+  }
+
+</style>
+{% endblock %}
+
+{% block content
+    %}
+    <h1 align="center">Make a Post</h1>
+    
+    <form method="POST">
+      <textarea name="text" id="text" class="form-control" rows="10" cols="70" placeholder="Your New Post !!"></textarea>
+      <br />
+      <div align="center">
+        <button type="submit" class="btn btn-lg btn-primary">Post</button>
+    </form>
+      <a href="/home"
+        ><button type="button" class="btn btn-lg btn-secondary">Back</button></a
+      >
+    </div>
+    {% endblock %}

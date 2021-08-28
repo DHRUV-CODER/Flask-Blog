@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %}Test{% endblock %} {% block content
+%} {% for post in posts %}
+<br />
+<div class="card">
+  <div class="card-header">{{post.date_created}}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p class="card-text">{{markdown.markdown(post.text)|safe}}</p>
+  </div>
+</div>
+<br />
+{% endfor %} {% endblock %}
